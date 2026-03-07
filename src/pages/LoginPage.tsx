@@ -42,13 +42,17 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!window.AppleID) return;
-    window.AppleID.auth.init({
-      clientId: import.meta.env.VITE_APPLE_CLIENT_ID as string,
-      scope: "name email",
-      redirectURI: import.meta.env.VITE_APPLE_REDIRECT_URI as string,
-      usePopup: true,
-    });
+    if (!window.AppleID || !import.meta.env.VITE_APPLE_CLIENT_ID) return;
+    try {
+      window.AppleID.auth.init({
+        clientId: import.meta.env.VITE_APPLE_CLIENT_ID as string,
+        scope: "name email",
+        redirectURI: import.meta.env.VITE_APPLE_REDIRECT_URI as string,
+        usePopup: true,
+      });
+    } catch (e) {
+      console.error("Apple Sign In init failed:", e);
+    }
   }, []);
 
   async function handleAppleLogin() {
