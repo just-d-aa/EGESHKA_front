@@ -60,10 +60,15 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const data = await window.AppleID.auth.signIn();
-      const tokens = await loginWithProvider(data.authorization.id_token, "apple");
+      console.log("[Apple] signIn data:", JSON.stringify(data));
+      const token = data.authorization.id_token;
+      console.log("[Apple] id_token:", token ? token.slice(0, 30) + "..." : "UNDEFINED");
+      const tokens = await loginWithProvider(token, "apple");
+      console.log("[Apple] loginWithProvider success:", tokens);
       setTokens(tokens);
       navigate("/paywall");
     } catch (e) {
+      console.error("[Apple] error:", e);
       setError(e instanceof Error ? e.message : "Ошибка авторизации");
     } finally {
       setLoading(false);
