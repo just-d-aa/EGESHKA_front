@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AppBar, Box, CircularProgress, Typography } from "@mui/material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
@@ -41,6 +41,26 @@ export default function LoginPage() {
   const { setTokens } = useAuth();
   const navigate = useNavigate();
 
+  const handleGoogleCallback = useCallback(
+    async (response: { credential: string }) => {
+      setError(null);
+      setLoading(true);
+      try {
+        console.log("[Google] credential:", response.credential.slice(0, 30) + "...");
+        const tokens = await loginWithProvider(response.credential, "google");
+        console.log("[Google] loginWithProvider success:", tokens);
+        setTokens(tokens);
+        navigate("/paywall");
+      } catch (e) {
+        console.error("[Google] error:", e);
+        setError(e instanceof Error ? e.message : "Ошибка авторизации");
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setTokens, navigate],
+  );
+
   useEffect(() => {
     if (!window.AppleID || !import.meta.env.VITE_APPLE_CLIENT_ID) return;
     try {
@@ -54,6 +74,18 @@ export default function LoginPage() {
       console.error("Apple Sign In init failed:", e);
     }
   }, []);
+
+  useEffect(() => {
+    if (!window.google || !import.meta.env.VITE_GOOGLE_CLIENT_ID) return;
+    try {
+      window.google.accounts.id.initialize({
+        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID as string,
+        callback: handleGoogleCallback,
+      });
+    } catch (e) {
+      console.error("Google Sign In init failed:", e);
+    }
+  }, [handleGoogleCallback]);
 
   async function handleAppleLogin() {
     setError(null);
@@ -153,13 +185,22 @@ export default function LoginPage() {
           <Button
             fullWidth
             variant="outlined"
-            startIcon={<GoogleIcon />}
+            startIcon={loading ? <CircularProgress size={18} color="inherit" /> : <GoogleIcon />}
+            disabled={loading}
+            onClick={() => {
+              if (window.google) {
+                window.google.accounts.id.prompt();
+              } else {
+                setError("Google SDK не загружен");
+              }
+            }}
             sx={{
               borderColor: "#dadce0",
               color: "#3c4043",
               height: "52px",
               fontSize: 16,
               "&:hover": { backgroundColor: "#f8f9fa", borderColor: "#dadce0" },
+              "&.Mui-disabled": { borderColor: "#e0e0e0", color: "#9e9e9e" },
             }}
           >
             Sign in with Google
