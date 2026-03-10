@@ -7,6 +7,10 @@ export async function loginWithProvider(
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ identityToken, identitySource }),
   });
-  if (!res.ok) throw new Error(`Auth failed: ${res.status}`);
+  if (!res.ok) {
+    const body = await res.json().catch(() => null);
+    const messages = body?.ErrorMessages?.join(", ") || `HTTP ${res.status}`;
+    throw new Error(messages);
+  }
   return res.json();
 }
