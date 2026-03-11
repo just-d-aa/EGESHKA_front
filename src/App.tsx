@@ -8,6 +8,7 @@ import { Icon } from "./assets/icon";
 import Button from "./components/Button";
 import Toolbar from "./components/Toolbar";
 import LoginPage from "./pages/LoginPage";
+import TelegramCallbackPage from "./pages/TelegramCallbackPage";
 import { AuthProvider } from "./context/AuthContext";
 import AuthStatus from "./components/AuthStatus";
 
@@ -390,6 +391,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/app/*" element={<TelegramCallbackPage />} />
       </Routes>
     </AuthProvider>
   );

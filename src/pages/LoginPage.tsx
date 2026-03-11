@@ -187,6 +187,7 @@ export default function LoginPage() {
             fullWidth
             variant="contained"
             startIcon={<TelegramIcon />}
+            onClick={() => window.open("https://t.me/egeshka_auth_bot", "_blank")}
             sx={{
               height: "52px",
               fontSize: 16,
