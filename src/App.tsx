@@ -9,6 +9,7 @@ import Button from "./components/Button";
 import Toolbar from "./components/Toolbar";
 import LoginPage from "./pages/LoginPage";
 import TelegramCallbackPage from "./pages/TelegramCallbackPage";
+import PaywallPage from "./pages/PaywallPage";
 import { AuthProvider } from "./context/AuthContext";
 import AuthStatus from "./components/AuthStatus";
 
@@ -392,6 +393,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/app/*" element={<TelegramCallbackPage />} />
+        <Route path="/paywall" element={<PaywallPage />} />
       </Routes>
     </AuthProvider>
   );
