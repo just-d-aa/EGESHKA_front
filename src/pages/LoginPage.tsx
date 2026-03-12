@@ -193,11 +193,18 @@ export default function LoginPage() {
             Sign in with Apple
           </Button>
 
-          <Box sx={{ position: "relative", width: "100%", height: "52px" }}>
+          <Box
+            sx={{
+              position: "relative",
+              width: "100%",
+              "&:hover .google-btn-face": { backgroundColor: "#F0F9FF" },
+            }}
+          >
             <Button
               fullWidth
               variant="outlined"
               startIcon={<GoogleIcon />}
+              className="google-btn-face"
               sx={{
                 backgroundColor: "#FFFFFF",
                 color: "#000000",
@@ -206,7 +213,7 @@ export default function LoginPage() {
                 borderColor: "#00BBFF",
                 borderWidth: 2,
                 boxShadow: "inset 0px -4px 2px -2px #00BBFF33",
-                "&:hover": { backgroundColor: "#F0F9FF", borderColor: "#00BBFF", borderWidth: 2 },
+                transition: "background-color 0.2s",
                 pointerEvents: "none",
               }}
             >
@@ -221,6 +228,7 @@ export default function LoginPage() {
                 width: "100%",
                 height: "100%",
                 opacity: 0,
+                cursor: "pointer",
                 "& iframe": { width: "100% !important", height: "100% !important" },
               }}
             />
