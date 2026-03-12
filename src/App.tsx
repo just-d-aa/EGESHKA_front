@@ -1,6 +1,6 @@
 // import { ReactNode } from "react";
 import { AppBar, Typography, Box, createTheme, Link } from "@mui/material";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useRive } from "@rive-app/react-canvas";
 
 import HeaderIcon from "./assets/header";
@@ -10,8 +10,14 @@ import Toolbar from "./components/Toolbar";
 import LoginPage from "./pages/LoginPage";
 import TelegramCallbackPage from "./pages/TelegramCallbackPage";
 import PaywallPage from "./pages/PaywallPage";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 import AuthStatus from "./components/AuthStatus";
+
+function ProtectedRoute({ children }: { children: React.ReactElement }) {
+  const { accessToken } = useAuth();
+  if (!accessToken) return <Navigate to="/login" replace />;
+  return children;
+}
 
 import "./App.css";
 
@@ -389,7 +395,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/app/*" element={<TelegramCallbackPage />} />
-        <Route path="/paywall" element={<PaywallPage />} />
+        <Route path="/paywall" element={<ProtectedRoute><PaywallPage /></ProtectedRoute>} />
       </Routes>
     </AuthProvider>
   );
