@@ -19,6 +19,15 @@ interface Window {
             locale?: string;
           },
         ): void;
+        prompt(callback?: (notification: {
+          isNotDisplayed(): boolean;
+          isSkippedMoment(): boolean;
+          isDismissedMoment(): boolean;
+          getMomentType(): string;
+          getNotDisplayedReason(): string;
+          getSkippedReason(): string;
+          getDismissedReason(): string;
+        }) => void): void;
       };
     };
   };
