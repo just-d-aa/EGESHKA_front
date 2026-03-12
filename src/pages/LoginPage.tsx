@@ -97,12 +97,6 @@ export default function LoginPage() {
     }
   }, [handleGoogleCallback]);
 
-  function handleGoogleLogin() {
-    const hiddenBtn = googleBtnRef.current?.querySelector<HTMLElement>('[role="button"]');
-    if (hiddenBtn) {
-      hiddenBtn.click();
-    }
-  }
 
   async function handleAppleLogin() {
     setError(null);
@@ -199,24 +193,36 @@ export default function LoginPage() {
             Sign in with Apple
           </Button>
 
-          <Button
-            fullWidth
-            variant="contained"
-            startIcon={loading ? <CircularProgress size={18} color="inherit" /> : <GoogleIcon />}
-            disabled={loading}
-            onClick={handleGoogleLogin}
-            sx={{
-              backgroundColor: "#FFFFFF",
-              color: "#000000",
-              height: "52px",
-              fontSize: 16,
-              border: "1px solid #E0E0E0",
-              "&:hover": { backgroundColor: "#F5F5F5" },
-              "&.Mui-disabled": { backgroundColor: "#F5F5F5", color: "#888888" },
-            }}
-          >
-            Sign in with Google
-          </Button>
+          <Box sx={{ position: "relative", width: "100%", height: "52px" }}>
+            <Button
+              fullWidth
+              variant="contained"
+              startIcon={<GoogleIcon />}
+              sx={{
+                backgroundColor: "#FFFFFF",
+                color: "#000000",
+                height: "52px",
+                fontSize: 16,
+                border: "1px solid #E0E0E0",
+                "&:hover": { backgroundColor: "#F5F5F5" },
+                pointerEvents: "none",
+              }}
+            >
+              Sign in with Google
+            </Button>
+            <Box
+              ref={googleBtnRef}
+              sx={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                opacity: 0,
+                "& iframe": { width: "100% !important", height: "100% !important" },
+              }}
+            />
+          </Box>
 
           <Button
             fullWidth
@@ -230,8 +236,6 @@ export default function LoginPage() {
           >
             Войти через Telegram
           </Button>
-
-          <Box ref={googleBtnRef} sx={{ position: "absolute", width: 0, height: 0, overflow: "hidden", pointerEvents: "none" }} />
 
           {error && (
             <Typography sx={{ color: "#d32f2f", fontSize: 14, textAlign: "center", fontFamily: "SF Pro Text" }}>
