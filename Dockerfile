@@ -13,6 +13,11 @@ RUN npm install
 # Копируем все файлы приложения
 COPY . .
 
+# Env-переменные нужны на этапе сборки (Vite вшивает в бандл)
+ARG VITE_APPLE_CLIENT_ID
+ARG VITE_APPLE_REDIRECT_URI
+ARG VITE_GOOGLE_CLIENT_ID
+
 # Собираем приложение
 RUN npm run build
 
