@@ -84,10 +84,10 @@ function LandingPage() {
               </Typography>
             </Box>
             <Box sx={{ display: "flex", gap: 2 }}>
-              <Button href={"https://kutt.it/egeshka-web-android"} className="Button" variant="contained">
+              <Button href={"https://clck.ru/3SM9qW"} className="Button" variant="contained">
                 для Android
               </Button>
-              <Button href={"https://kutt.it/egeshka-web-ios"} className="Button" variant="contained">
+              <Button href={"https://clck.ru/3SM9dR"} className="Button" variant="contained">
                 для IOS
               </Button>
               <AuthStatus />
@@ -306,10 +306,10 @@ function LandingPage() {
               justifyContent: "space-between",
             })}
           >
-            <Button href={"https://kutt.it/egeshka-web-android"} className="Button" variant="contained">
+            <Button href={"https://clck.ru/3SM9qW"} className="Button" variant="contained">
               для Android
             </Button>
-            <Button href={"https://kutt.it/egeshka-web-ios"} className="Button" variant="contained">
+            <Button href={"https://clck.ru/3SM9dR"} className="Button" variant="contained">
               для IOS
             </Button>
           </Box>
@@ -348,11 +348,11 @@ function LandingPage() {
             <div style={{ width: "392px" }}>
               ПРИЛОЖЕНИЕ:
               <br />
-              <Link href={"https://kutt.it/egeshka-web-android"} target="_blank" color="inherit">
+              <Link href={"https://clck.ru/3SM9qW"} target="_blank" color="inherit">
                 ЕГЭШКА для Android
               </Link>
               <br />
-              <Link href={"https://kutt.it/egeshka-web-ios"} target="_blank" color="inherit">
+              <Link href={"https://clck.ru/3SM9dR"} target="_blank" color="inherit">
                 ЕГЭШКА для iOS
               </Link>
               <br />
@@ -360,23 +360,19 @@ function LandingPage() {
             <div style={{ width: "392px" }}>
               СОЦСЕТИ:
               <br />
-              <Link href={"https://kutt.it/egeska-web-vk"} target="_blank" color="inherit">
+              <Link href={"https://clck.ru/3SMAH3"} target="_blank" color="inherit">
                 Вконтакте
               </Link>
               <br />
-              <Link href={"https://kutt.it/egeska-web-tg"} target="_blank" color="inherit">
+              <Link href={"https://t.me/egeshka_super"} target="_blank" color="inherit">
                 Канал в Телеграмм
               </Link>
             </div>
             <div style={{ width: "392px" }}>
               ПОДДЕРЖАТЬ ЕГЭШКУ
               <br />
-              <Link href={"https://kutt.it/egeska-web-vk"} target="_blank" color="inherit">
+              <Link href={"https://clck.ru/3SMAH3"} target="_blank" color="inherit">
                 Вконтакте
-              </Link>
-              <br />
-              <Link href={"https://kutt.it/egeshka-web-donation"} target="_blank" color="inherit">
-                QR-код СБП
               </Link>
             </div>
           </div>
