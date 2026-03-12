@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://isaactaitor.github.io/EGESHKA_front/",
+  "homepage": "https://just-d-aa.github.io/EGESHKA_front/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

@@ -12,6 +12,27 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- SPA redirect restore for GitHub Pages -->
+    <script>
+      (function(){
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+      (function(){
+        var q = window.location.search;
+        if (q.length > 2 && q.slice(0, 2) === '?/') {
+          var decoded = q.slice(2).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&');
+          }).join('?');
+          window.history.replaceState(null, null,
+            window.location.pathname.slice(0, -1) + '/' + decoded + window.location.hash
+          );
+        }
+      })();
+    </script>
     <script
       type="text/javascript"
       src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"

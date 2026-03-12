@@ -2,7 +2,7 @@ export async function loginWithProvider(
   identityToken: string,
   identitySource: "apple" | "google" | "telegram",
 ): Promise<{ accessToken: string; refreshToken: string }> {
-  const res = await fetch("/api/v2/user/login", {
+  const res = await fetch("https://egeshka.com/api/v2/user/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ identityToken, identitySource }),
@@ -18,7 +18,7 @@ export async function loginWithProvider(
 async function relogin(
   refreshToken: string,
 ): Promise<{ accessToken: string; refreshToken: string }> {
-  const res = await fetch("/api/v1/user/relogin", {
+  const res = await fetch("https://egeshka.com/api/v1/user/relogin", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ refreshToken }),
@@ -70,7 +70,7 @@ export async function fetchWithAuth(
 }
 
 export async function createPayment(): Promise<{ paymentId: string; paymentUrl: string }> {
-  const res = await fetchWithAuth("/api/v2/payment/create", {
+  const res = await fetchWithAuth("https://egeshka.com/api/v2/payment/create", {
     method: "POST",
     body: JSON.stringify({ purpose: "subscription" }),
   });
