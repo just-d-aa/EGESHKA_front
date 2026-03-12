@@ -26,9 +26,14 @@ export default function PaywallPage() {
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showHint, setShowHint] = useState(false);
 
   async function handlePayment() {
-    if (!agreed) return;
+    if (!agreed) {
+      setShowHint(true);
+      return;
+    }
+    setShowHint(false);
     setError(null);
     setLoading(true);
     try {
@@ -168,7 +173,7 @@ export default function PaywallPage() {
       {/* CTA Button */}
       <Button
         variant="contained"
-        disabled={!agreed || loading}
+        disabled={loading}
         onClick={handlePayment}
         startIcon={loading ? <CircularProgress size={20} color="inherit" /> : undefined}
         sx={{
@@ -179,19 +184,30 @@ export default function PaywallPage() {
           fontSize: 18,
           background: "#E82B2B",
           "&.MuiButton-contained": {
-            background: agreed ? "#E82B2B" : "rgba(232,43,43,0.4)",
+            background: "#E82B2B",
           },
           "&:hover": {
             background: "#C72222",
-          },
-          "&.Mui-disabled": {
-            background: "rgba(232,43,43,0.4)",
-            color: "rgba(255,255,255,0.6)",
           },
         }}
       >
         Открыть полный доступ
       </Button>
+
+      {showHint && !agreed && (
+        <Typography
+          sx={{
+            color: "#FFEB3B",
+            fontSize: 14,
+            textAlign: "center",
+            fontFamily: "SF Pro Text",
+            mt: 1,
+            zIndex: 1,
+          }}
+        >
+          Примите условия подписки
+        </Typography>
+      )}
 
       {error && (
         <Typography
@@ -210,7 +226,7 @@ export default function PaywallPage() {
 
       {/* Terms checkbox */}
       <Box
-        onClick={() => setAgreed((v) => !v)}
+        onClick={() => { setAgreed((v) => !v); setShowHint(false); }}
         sx={{
           display: "flex",
           alignItems: "flex-start",

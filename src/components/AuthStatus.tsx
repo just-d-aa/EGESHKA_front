@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import Button from "./Button";
 import { useAuth } from "../context/AuthContext";
@@ -8,9 +7,11 @@ export default function AuthStatus() {
 
   if (accessToken) {
     return (
-      <Typography sx={{ color: "#00BBFF", fontFamily: "SF Pro Text", fontSize: 14 }}>
-        {accessToken.slice(0, 8)}...
-      </Typography>
+      <RouterLink to="/paywall" style={{ textDecoration: "none" }}>
+        <Button variant="contained" sx={{ background: "#E82B2B", "&:hover": { background: "#C72222" } }}>
+          Оплатить
+        </Button>
+      </RouterLink>
     );
   }
 
