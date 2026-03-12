@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import Button from "../components/Button";
 import SubscriptionBird from "../assets/subscriptionBird";
 import { InfinityIcon, NoAdsIcon, TreasureIcon } from "../assets/paywallIcons";
+import { useAuth } from "../context/AuthContext";
+import { createPayment } from "../api/auth";
 
 const benefits = [
   { icon: <InfinityIcon />, text: "Бесконечные жизни" },
@@ -23,6 +25,23 @@ function CheckIcon() {
 
 export default function PaywallPage() {
   const [agreed, setAgreed] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { accessToken } = useAuth();
+
+  async function handlePayment() {
+    if (!agreed || !accessToken) return;
+    setError(null);
+    setLoading(true);
+    try {
+      const { paymentUrl } = await createPayment(accessToken);
+      window.location.href = paymentUrl;
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Ошибка создания платежа");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <Box
@@ -151,9 +170,9 @@ export default function PaywallPage() {
       {/* CTA Button */}
       <Button
         variant="contained"
-        onClick={() => {
-          // TODO: integrate with payment
-        }}
+        disabled={!agreed || loading}
+        onClick={handlePayment}
+        startIcon={loading ? <CircularProgress size={20} color="inherit" /> : undefined}
         sx={{
           width: "100%",
           maxWidth: 360,
@@ -162,15 +181,34 @@ export default function PaywallPage() {
           fontSize: 18,
           background: "#E82B2B",
           "&.MuiButton-contained": {
-            background: "#E82B2B",
+            background: agreed ? "#E82B2B" : "rgba(232,43,43,0.4)",
           },
           "&:hover": {
             background: "#C72222",
+          },
+          "&.Mui-disabled": {
+            background: "rgba(232,43,43,0.4)",
+            color: "rgba(255,255,255,0.6)",
           },
         }}
       >
         Открыть полный доступ
       </Button>
+
+      {error && (
+        <Typography
+          sx={{
+            color: "#FFD0D0",
+            fontSize: 14,
+            textAlign: "center",
+            fontFamily: "SF Pro Text",
+            mt: 1,
+            zIndex: 1,
+          }}
+        >
+          {error}
+        </Typography>
+      )}
 
       {/* Terms checkbox */}
       <Box
