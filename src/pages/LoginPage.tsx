@@ -47,9 +47,7 @@ export default function LoginPage() {
       setError(null);
       setLoading(true);
       try {
-        console.log("[Google] credential:", response.credential.slice(0, 30) + "...");
         const tokens = await loginWithProvider(response.credential, "google");
-        console.log("[Google] loginWithProvider success:", tokens);
         setTokens(tokens);
         navigate("/paywall");
       } catch (e) {
@@ -103,11 +101,8 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const data = await window.AppleID.auth.signIn();
-      console.log("[Apple] signIn data:", JSON.stringify(data));
       const token = data.authorization.id_token;
-      console.log("[Apple] id_token:", token ? token.slice(0, 30) + "..." : "UNDEFINED");
       const tokens = await loginWithProvider(token, "apple");
-      console.log("[Apple] loginWithProvider success:", tokens);
       setTokens(tokens);
       navigate("/paywall");
     } catch (e) {

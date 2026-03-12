@@ -18,11 +18,9 @@ export default function TelegramCallbackPage() {
     }
 
     const token = match[1];
-    console.log("[Telegram] token:", token.slice(0, 10) + "...");
 
     loginWithProvider(token, "telegram")
       .then((tokens) => {
-        console.log("[Telegram] loginWithProvider success:", tokens);
         setTokens(tokens);
         navigate("/paywall");
       })
