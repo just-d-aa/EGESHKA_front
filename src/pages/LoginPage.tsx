@@ -171,7 +171,7 @@ export default function LoginPage() {
             maxWidth: "400px",
           }}
         >
-          <Typography variant="h2" sx={{ color: "#00BBFF", textAlign: "center", marginBottom: "16px", fontSize: 32 }}>
+          <Typography variant="h2" sx={{ color: "#00BBFF", textAlign: "center", fontSize: 32 }}>
             Войти в ЕГЭШКУ
           </Typography>
 
@@ -196,15 +196,17 @@ export default function LoginPage() {
           <Box sx={{ position: "relative", width: "100%", height: "52px" }}>
             <Button
               fullWidth
-              variant="contained"
+              variant="outlined"
               startIcon={<GoogleIcon />}
               sx={{
                 backgroundColor: "#FFFFFF",
                 color: "#000000",
                 height: "52px",
                 fontSize: 16,
-                border: "1px solid #E0E0E0",
-                "&:hover": { backgroundColor: "#F5F5F5" },
+                borderColor: "#00BBFF",
+                borderWidth: 2,
+                boxShadow: "inset 0px -4px 2px -2px #00BBFF33",
+                "&:hover": { backgroundColor: "#F0F9FF", borderColor: "#00BBFF", borderWidth: 2 },
                 pointerEvents: "none",
               }}
             >
