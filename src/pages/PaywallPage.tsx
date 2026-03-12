@@ -3,7 +3,6 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 import Button from "../components/Button";
 import SubscriptionBird from "../assets/subscriptionBird";
 import { InfinityIcon, NoAdsIcon, TreasureIcon } from "../assets/paywallIcons";
-import { useAuth } from "../context/AuthContext";
 import { createPayment } from "../api/auth";
 
 const benefits = [
@@ -27,14 +26,13 @@ export default function PaywallPage() {
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { accessToken } = useAuth();
 
   async function handlePayment() {
-    if (!agreed || !accessToken) return;
+    if (!agreed) return;
     setError(null);
     setLoading(true);
     try {
-      const { paymentUrl } = await createPayment(accessToken);
+      const { paymentUrl } = await createPayment();
       window.location.href = paymentUrl;
     } catch (e) {
       setError(e instanceof Error ? e.message : "Ошибка создания платежа");
